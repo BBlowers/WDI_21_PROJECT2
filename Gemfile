@@ -13,6 +13,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'devise', '4.2.0'
 gem 'carrierwave', '0.10.0'
+gem 'rmagick'
 
 group :development, :test do
   gem 'byebug', platform: :mri

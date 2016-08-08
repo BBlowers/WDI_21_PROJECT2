@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @version.title %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @version.content %>
+</p>
+
+<p>
+  <strong>Is current:</strong>
+  <%= @version.is_current %>
+</p>
+
+<p>
+  <strong>Project:</strong>
+  <%= link_to @version.project.title, @version.project %>
+</p>
+
+<h1>Add image</h1>
+<%= form_for(@image) do |f| %>
+  <% if @image.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@image.errors.count, "error") %> prohibited this image from being saved:</h2>
+
+      <ul>
+      <% @image.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :image_src %>
+    <%= f.text_field :image_src %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<h1>Main image:</h1>
+<%= image_tag(Image.find_by_id(@version.main_image_id).image_src) %>
+
+<h1>Images:</h1>
+<% @version.images.each do |image| %>
+  <div class="image">
+    <h3><%= image.version.title %></h3>
+    <%= image_tag image.image_src %>
+  </div>
+<% end %>
+
+<%= link_to 'Edit', edit_version_path(@version) %> |
+<%= link_to 'Back', versions_path %>

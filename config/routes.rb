@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
-  get 'user/:id', to: "user#show"
+  # get 'images/new', to: "images#new"
 
-  get 'statics/home'
+  # get 'images/create', to: "images#create"
 
-  get 'statics/about'
-
-  get 'statics/terms'
-
-  get 'statics/contact'
+  # get 'images/destroy', to: "images#destroy"
 
   devise_for :users
+  resources :projects, :users, :versions, :images
+  get 'about', to: "statics#about"
+  get 'terms', to: "statics#terms"
+  get 'contact', to: "statics#contact"
   root to: "statics#home"
 end
