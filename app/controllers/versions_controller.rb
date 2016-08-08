@@ -11,6 +11,7 @@ class VersionsController < ApplicationController
   # GET /versions/1.json
   def show
     @image = Image.new
+    @comment = Comment.new
     session[:current_version_id] = params[:id]
   end
 

@@ -55,5 +55,45 @@
   </div>
 <% end %>
 
+<h1>Add comment</h1>
+<%= form_for(@comment) do |f| %>
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+      <ul>
+      <% @comment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :content %>
+    <%= f.text_field :content %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+<h1>Comments:</h1>
+<% @version.comments.each do |comment| %>
+  <div class="comment">
+    <h3><%= comment.title %></h3>
+    <p><%= comment.content %></p>
+    <p><small>Added by <%= comment.user.username %></small></p>
+  </div>
+<% end %>
+
+
 <%= link_to 'Edit', edit_version_path(@version) %> |
 <%= link_to 'Back', versions_path %>
