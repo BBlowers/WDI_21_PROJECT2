@@ -21,6 +21,13 @@
     <%= f.text_area :content %>
   </div>
 
+  <% if version.images.length > 0 %>
+    <div class="field">
+    <%= f.collection_radio_buttons(:current_version_id, project.versions, :id, :title) do |b|
+      b.label { b.radio_button + b.object.title}
+    end %>
+    </div
+
   <div class="actions">
     <%= f.submit %>
   </div>

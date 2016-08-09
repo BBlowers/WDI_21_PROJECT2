@@ -14,6 +14,12 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise', '4.2.0'
 gem 'carrierwave', '0.10.0'
 gem 'rmagick'
+gem 'bootstrap', '~> 4.0.0.alpha3.1'
+gem "font-awesome-rails"
+  
+source 'https://rails-assets.org' do
+    gem 'rails-assets-tether', '>= 1.1.0'
+end
 
 group :development, :test do
   gem 'byebug', platform: :mri

@@ -19,44 +19,51 @@
   <strong>Project:</strong>
   <%= link_to @version.project.title, @version.project %>
 </p>
+<% if @version.project.user_id == current_user.id %>
+  <h1>Add image</h1>
+  <%= form_for [@project, @version, @image] do |f| %>
+    <% if @image.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@image.errors.count, "error") %> prohibited this image from being saved:</h2>
 
-<h1>Add image</h1>
-<%= form_for(@image) do |f| %>
-  <% if @image.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@image.errors.count, "error") %> prohibited this image from being saved:</h2>
+        <ul>
+        <% @image.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-      <ul>
-      <% @image.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <div class="field">
+      <%= f.label :image_src %>
+      <%= f.text_field :image_src %>
+    </div>
+
+    <%= f.hidden_field :version_id, value: @version.id %>
+
+    <div class="actions">
+      <%= f.submit %>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :image_src %>
-    <%= f.text_field :image_src %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>
-
 <h1>Main image:</h1>
-<%= image_tag(Image.find_by_id(@version.main_image_id).image_src) %>
+<% if !!Image.find_by_id(@version.main_image_id) %>
+  <div class="version-main-image">
+  <%= image_tag(Image.find_by_id(@version.main_image_id).image_src, :class => "image") %>
+  </div>
+<% else %>
+  <small>Not set.</small>
+<% end %>
 
 <h1>Images:</h1>
 <% @version.images.each do |image| %>
-  <div class="image">
-    <h3><%= image.version.title %></h3>
-    <%= image_tag image.image_src %>
+  <div class="version-images">
+    <%= image_tag image.image_src, :class => "image" %>
   </div>
 <% end %>
 
 <h1>Add comment</h1>
-<%= form_for(@comment) do |f| %>
+<%= form_for [@project, @version, @comment] do |f| %>
   <% if @comment.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
@@ -79,6 +86,8 @@
     <%= f.text_field :content %>
   </div>
 
+  <%= f.hidden_field :version_id, value: @version.id %>
+
   <div class="actions">
     <%= f.submit %>
   </div>
@@ -91,9 +100,11 @@
     <h3><%= comment.title %></h3>
     <p><%= comment.content %></p>
     <p><small>Added by <%= comment.user.username %></small></p>
+    <%= link_to 'Destroy', project_version_comment_path(@project, @version, comment), method: :delete, data: { confirm: 'Are you sure?' } %>
   </div>
 <% end %>
 
-
-<%= link_to 'Edit', edit_version_path(@version) %> |
-<%= link_to 'Back', versions_path %>
+<% if @version.project.user_id == current_user.id %>
+  <%= link_to 'Edit', edit_project_version_path(@project, @version) %>
+  <%= link_to 'Back', project_version_path(@project, @version) %>
+<% end %>

@@ -1,16 +1,17 @@
 class CommentsController < ApplicationController
+  before_action :set_comment, only: [:create, :destroy]
+  before_action :set_version, only: [:create, :destroy]
+  before_action :set_project, only: [:create, :destroy]
   def new
     @comment = Comment.new
   end
 
   def create
-    @version = Version.find_by_id(session[:current_project_id])
-
     @comment = @version.comments.new(comment_params)
     @comment.user_id = current_user.id
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to @version, notice: 'Comment was successfully created.' }
+        format.html { redirect_to project_version_path(@project, @version), notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @version }
       else
         format.html { render :new }
@@ -20,17 +21,27 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    @comment.destroy
+    respond_to do |format|
+      format.html { redirect_to project_version_path(@project, @version), notice: 'Comment was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    # Never trust parameters from the scary internet, only allow the white list through.
+
     def set_comment
       @comment = Comment.find(params[:id])
     end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
+    def set_version
+      @version = Version.find(params[:version_id])
+    end
+    def set_project
+      @project = Project.find(@version.project_id)
+    end
     def comment_params
-      params.require(:comment).permit(:title, :content)
+      params.require(:comment).permit(:title, :content, :version_id)
     end
 
 end

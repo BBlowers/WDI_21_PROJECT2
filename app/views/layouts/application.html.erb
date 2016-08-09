@@ -9,6 +9,7 @@
   </head>
 
   <body>
+    <%= render 'layouts/header' %>
     <div class='login'>
       <% if current_user %>
          <%= link_to current_user.username, user_path(current_user) %>
@@ -18,8 +19,6 @@
          <%= link_to "Register", new_user_registration_path %>
       <% end %>
     </div>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
     <%= yield %>
   </body>
 </html>

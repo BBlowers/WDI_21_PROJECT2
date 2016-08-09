@@ -14,10 +14,10 @@
   <strong>User:</strong>
   <%= link_to @project.user.username, @project.user %>
 </p>
-
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to "Add new version", new_version_url %>
-
+<% if @project.user_id == current_user.id %>
+  <%= link_to 'Edit', edit_project_path(@project) %>
+  <%= link_to "Add new version", new_project_version_path(@project) %>
+<% end %>
 <h1>Versions</h1>
 <table>
   <thead>
@@ -35,9 +35,9 @@
         <td><%= version.title %></td>
         <td><%= version.content %></td>
         <td><%= version.project.title %></td>
-        <td><%= link_to 'Show', version %></td>
-        <td><%= link_to 'Edit', edit_version_path(version) %></td>
-        <td><%= link_to 'Destroy', version, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', project_version_path(version) %></td>
+        <td><%= link_to 'Edit', edit_project_version_path(version) %></td>
+        <td><%= link_to 'Destroy', project_version_path(@project, version), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
