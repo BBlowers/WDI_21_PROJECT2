@@ -35,8 +35,8 @@
         <td><%= version.title %></td>
         <td><%= version.content %></td>
         <td><%= version.project.title %></td>
-        <td><%= link_to 'Show', project_version_path(version) %></td>
-        <td><%= link_to 'Edit', edit_project_version_path(version) %></td>
+        <td><%= link_to 'Show', project_version_path(@project, version) %></td>
+        <td><%= link_to 'Edit', edit_project_version_path(@project, version) %></td>
         <td><%= link_to 'Destroy', project_version_path(@project, version), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

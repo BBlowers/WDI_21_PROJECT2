@@ -9,7 +9,6 @@
   text-align: center;
 }
 
-
 .version-main-image {
   height: 400px;
   width: 400px;
@@ -26,3 +25,27 @@
   max-width: 100%;
   max-height: 100%;
 }
+
+.card {
+  background-color: #141518;
+  text-align: center;
+  border: 6px solid #141518;
+  border-radius: 0px;
+  .card-img {
+    border-radius: 0px;
+
+  }
+}
+
+.card-img-overlay {
+  background: -webkit-linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.3));
+  width: 100%;
+  text-align: left;
+  height: 100%;
+  width: 100%;
+  .card-title {
+    
+    bottom: 0px;
+  }
+}
+

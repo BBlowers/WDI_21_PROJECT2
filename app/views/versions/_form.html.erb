@@ -21,15 +21,8 @@
     <%= f.text_area :content %>
   </div>
 
-  <div class="field">
-    <%= f.label :is_current %>
-    <%= f.check_box :is_current %>
-  </div>
-  
   <% if version.images.length > 0 %>
     <div class="field">
-
-
     <%= f.collection_radio_buttons(:main_image_id, version.images, :id, :image_src) do |b|
       b.label { b.radio_button + image_tag(b.object.image_src)}
     end %>
