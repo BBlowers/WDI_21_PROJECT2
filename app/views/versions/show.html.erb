@@ -39,6 +39,11 @@
       <%= f.text_field :image_src %>
     </div>
 
+    <div class="field">
+      <%= f.label :remote_image_src_url %><br />
+     <%= f.text_field :remote_image_src_url %>
+    </div>
+
     <%= f.hidden_field :version_id, value: @version.id %>
 
     <div class="actions">

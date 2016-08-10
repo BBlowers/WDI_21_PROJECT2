@@ -30,6 +30,6 @@ class ImagesController < ApplicationController
       @project = Project.find(@version.project_id)
     end
     def image_params
-      params.require(:image).permit(:image_src, :version_id)
+      params.require(:image).permit(:remote_image_src_url, :image_src, :version_id)
     end
 end
