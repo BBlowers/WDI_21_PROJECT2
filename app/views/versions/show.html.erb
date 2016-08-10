@@ -61,7 +61,6 @@
     <%= image_tag image.image_src, :class => "image" %>
   </div>
 <% end %>
-
 <h1>Add comment</h1>
 <%= form_for [@project, @version, @comment] do |f| %>
   <% if @comment.errors.any? %>
@@ -99,8 +98,10 @@
   <div class="comment">
     <h3><%= comment.title %></h3>
     <p><%= comment.content %></p>
-    <p><small>Added by <%= comment.user.username %></small></p>
+    <p><small>Added by <%= comment.user.username %> <%= distance_of_time_in_words(Time.now, comment.created_at) %> ago</small></p>
+    <% if comment.user == current_user || @version.project.user == current_user %>
     <%= link_to 'Destroy', project_version_comment_path(@project, @version, comment), method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
   </div>
 <% end %>
 

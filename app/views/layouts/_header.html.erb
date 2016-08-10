@@ -1,3 +1,35 @@
-<button type="button" class="btn btn-default" aria-label="Left Align">
-  <span><i class="fa fa-bars" aria-hidden="true"></i></span>
-</button>
+<div class="container">
+  <div class="btn-group btn-group-justified" role="group" aria-label="...">
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Dropdown
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a href="#">Dropdown link</a></li>
+        <li><a href="#">Dropdown link</a></li>
+      </ul>
+    </div>
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-default">Middle</button>
+    </div>
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-default">Right</button>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <button type="button" class="btn btn-default" aria-label="Left Align">
+    <span><i class="fa fa-bars" aria-hidden="true"></i></span>
+  </button>
+  <div class='login'>
+    <% if current_user %>
+       <%= link_to current_user.username, user_path(current_user) %>
+       <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+    <% else %>
+       <%= link_to "Sign In", new_user_session_path %>
+       <%= link_to "Register", new_user_registration_path %>
+    <% end %>
+    <%= link_to "projects", projects_path %>
+  </div>
+</div>

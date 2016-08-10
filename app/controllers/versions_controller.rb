@@ -1,6 +1,8 @@
 class VersionsController < ApplicationController
+
   before_action :set_version, only: [:show, :edit, :update, :destroy]
   before_action :set_project
+  before_action :check_user_owns_version, only: [:edit, :update, :destroy]
 
   def show
     @image = Image.new
@@ -49,6 +51,13 @@ class VersionsController < ApplicationController
   end
 
   private
+
+    def check_user_owns_version
+      if @version.project.user != current_user
+        redirect_to project_version_path(@project, @version)
+      end
+    end
+
     def set_version
       @version = Version.find(params[:id])
     end

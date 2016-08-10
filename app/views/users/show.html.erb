@@ -3,38 +3,43 @@
 <p><%= @user.email %></p>
 <p><%= @user.first_name %></p>
 <p><%= @user.last_name %></p>
+<% if @user.id == current_user.id %>
 <%= link_to "edit user", edit_user_registration_path %>
+<% end %>
 <% if @user.profile_pic.thumb.url != nil %>
-<p>
-  <b>Image:</b>
-  <%= image_tag (@user.profile_pic.thumb.url) %>
-</p>
+  <p>
+    <b>Profile pic:</b>
+    <%= image_tag(@user.profile_pic.thumb.url) %>
+  </p>
+<% else %>
+  <p>
+    <b>Profile pic:</b>
+    <%= image_tag(@user.remote_profile_pic_url) %>
+  </p>
+<% end %>
+<% if @user.id == current_user.id %>
+<%= link_to "New project", new_project_url %>
 <% end %>
 
-<%= link_to "new project", new_project_url %>
-
 <h1>Projects</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Content</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="rows">
+  <div class="card-deck-wrapper">
+    <div class="card-deck">
+<% @user.projects.each do |project| %>
+  <div class="card card-inverse col-md-4">    
+    <%= link_to (image_tag Image.find_by_id(Version.find_by_id(project.current_version_id).main_image_id).image_src, class: "card-img"), project_path(project) %>
+    <div class="card-img-overlay">
+      <h4 class="card-title"><%= link_to project.title, project_path(project) %></h4>
+      <p class="card-text"><small class="text-muted"><%= link_to 'Show', project_path(project) %></small></p>
+      <% if project.user_id == current_user.id %>
+      <p class="card-text"><small class="text-muted"><%= link_to 'Edit', edit_project_path(project) %></small></p>
+      <p class="card-text"><small class="text-muted"><%= link_to 'Destroy', project_path(project), method: :delete, data: { confirm: 'Are you sure?' } %></small></p>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+</div>
+</div>
+</div>
 
-  <tbody>
-    <% @user.projects.each do |project| %>
-      <tr>
-        <td><%= project.title %></td>
-        <td><%= project.content %></td>
-        <td><%= project.user.username %></td>
-        <td><%= link_to 'Show', project %></td>
-        <td><%= link_to 'Edit', edit_project_path(project) %></td>
-        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 

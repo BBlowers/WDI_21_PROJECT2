@@ -16,3 +16,20 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(document).on('turbolinks:load', function() {
+
+  var $lis = $('#users li');
+
+  $('#search').on('keyup', function() {
+    var input = this;
+    $lis.each(function() {
+    if($(this).text().toLowerCase().match($(input).val().toLowerCase())) {
+      $(this).show()
+    } else {
+      $(this).hide()
+    }  
+    })
+    
+  });
+});
