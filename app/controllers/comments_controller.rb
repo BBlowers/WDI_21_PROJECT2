@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:create, :destroy]
+  before_action :authenticate_user!
+  before_action :set_comment, only: [:destroy]
   before_action :set_version, only: [:create, :destroy]
   before_action :set_project, only: [:create, :destroy]
   def new

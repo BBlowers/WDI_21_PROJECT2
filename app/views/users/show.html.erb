@@ -1,45 +1,39 @@
-<h1>User#show</h1>
-<p><%= @user.username %></p>
-<p><%= @user.email %></p>
-<p><%= @user.first_name %></p>
-<p><%= @user.last_name %></p>
-<% if @user.id == current_user.id %>
-<%= link_to "edit user", edit_user_registration_path %>
-<% end %>
-<% if @user.profile_pic.thumb.url != nil %>
-  <p>
-    <b>Profile pic:</b>
-    <%= image_tag(@user.profile_pic.thumb.url) %>
-  </p>
-<% else %>
-  <p>
-    <b>Profile pic:</b>
-    <%= image_tag(@user.remote_profile_pic_url) %>
-  </p>
-<% end %>
-<% if @user.id == current_user.id %>
-<%= link_to "New project", new_project_url %>
-<% end %>
+<div class="profile-wrapper">
+  <% if @user.profile_pic.thumb.url != nil %>
+    <%= image_tag(@user.profile_pic.detail.url, class: "profile-page-pic") %>
+  <% else %>
+    <%= image_tag(@user.remote_profile_pic_url, class: "profile-page-pic") %>
+  <% end %><h1><%= @user.username %></h1>
+  <p><%= @user.email %></p>
+  <p><%= @user.first_name %></p>
+  <p><%= @user.last_name %></p>
+  <% if @user.id == current_user.id %>
+  <%= link_to "Edit profile", edit_user_registration_path %>
+  <% end %>
+  <% if @user.id == current_user.id %>
+  <% end %>
+  <div class="clear-both"></div>
+</div>
 
-<h1>Projects</h1>
+<h1><% if @user.id == current_user.id %>Your<% else %><%= @user.username %>'s<% end %> Projects</h1>
 <div class="rows">
-  <div class="card-deck-wrapper">
-    <div class="card-deck">
-<% @user.projects.each do |project| %>
-  <div class="card card-inverse col-md-4">    
-    <%= link_to (image_tag Image.find_by_id(Version.find_by_id(project.current_version_id).main_image_id).image_src, class: "card-img"), project_path(project) %>
-    <div class="card-img-overlay">
-      <h4 class="card-title"><%= link_to project.title, project_path(project) %></h4>
-      <p class="card-text"><small class="text-muted"><%= link_to 'Show', project_path(project) %></small></p>
-      <% if project.user_id == current_user.id %>
-      <p class="card-text"><small class="text-muted"><%= link_to 'Edit', edit_project_path(project) %></small></p>
-      <p class="card-text"><small class="text-muted"><%= link_to 'Destroy', project_path(project), method: :delete, data: { confirm: 'Are you sure?' } %></small></p>
-      <% end %>
-    </div>
+  <div class="row">
+    <% @user.projects.each do |project| %>
+      <div class="card card-inverse col-md-4">    
+        <%= link_to (image_tag Image.find_by_id(Version.find_by_id(project.current_version_id).main_image_id).image_src.detail.url, class: "card-img"), project_path(project) %>
+        <div class="card-img-overlay">
+          <h4 class="card-title"><%= link_to project.title, project_path(project) %></h4>
+          <% if project.user_id == current_user.id %>
+          <p class="card-text"><small class="text-muted"><%= link_to 'Edit', edit_project_path(project) %></small></p>
+          <p class="card-text"><small class="text-muted"><%= link_to 'Delete', project_path(project), method: :delete, data: { confirm: 'Are you sure?' } %></small></p>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
-<% end %>
 </div>
-</div>
-</div>
+
+
+
 
 

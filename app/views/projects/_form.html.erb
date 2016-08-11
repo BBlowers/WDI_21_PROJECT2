@@ -11,17 +11,12 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-  </div>
-
-  <div class="field">
-    <%= f.label :content %>
-    <%= f.text_area :content %>
+  <div class="form-group">
+    <%= f.text_field :title, class: "form-control", placeholder: "Title" %>
+    <%= f.text_area :content, class: "form-control", placeholder: "Content" %>
   </div>
   <% if project.versions.length > 0 %>
-  <div class="field">
+  <div class="form-group">
   <%= f.collection_radio_buttons(:current_version_id, project.versions, :id, :title) do |b|
     b.label { b.radio_button + b.object.title }
   end %>

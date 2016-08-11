@@ -1,4 +1,6 @@
 class ImagesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_image, only: [:destroy]
   before_action :set_version, only: [:create, :destroy]
   before_action :set_project, only: [:create, :destroy]
 
@@ -19,9 +21,18 @@ class ImagesController < ApplicationController
   end
 
   def destroy
+    @image.destroy
+    respond_to do |format|
+      format.html { redirect_to project_version_path(@project, @version), notice: 'Version was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private
+    def set_image
+      @image = Image.find(params[:id])
+    end
+
     def set_version
       @version = Version.find(params[:version_id])
     end

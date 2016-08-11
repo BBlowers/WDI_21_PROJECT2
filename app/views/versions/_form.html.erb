@@ -11,20 +11,15 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-  </div>
-
-  <div class="field">
-    <%= f.label :content %>
-    <%= f.text_area :content %>
+  <div class="form-group">
+    <%= f.text_field :title, class: "form-control", placeholder: "Title" %>
+    <%= f.text_area :content, class: "form-control", placeholder: "Content" %>
   </div>
 
   <% if version.images.length > 0 %>
-    <div class="field">
+    <div class="main-version-radio">
     <%= f.collection_radio_buttons(:main_image_id, version.images, :id, :image_src) do |b|
-      b.label { b.radio_button + image_tag(b.object.image_src)}
+      b.label { image_tag(b.object.image_src) + b.radio_button }
     end %>
     </div>
   <% end %>

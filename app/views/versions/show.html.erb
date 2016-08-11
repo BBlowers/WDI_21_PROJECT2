@@ -1,72 +1,83 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @version.title %>
-</p>
-
-<p>
-  <strong>Content:</strong>
-  <%= @version.content %>
-</p>
-
-<p>
-  <strong>Is current:</strong>
-  <%= @version.is_current %>
-</p>
-
-<p>
-  <strong>Project:</strong>
-  <%= link_to @version.project.title, @version.project %>
-</p>
-<% if @version.project.user_id == current_user.id %>
-  <h1>Add image</h1>
-  <%= form_for [@project, @version, @image] do |f| %>
-    <% if @image.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@image.errors.count, "error") %> prohibited this image from being saved:</h2>
-
-        <ul>
-        <% @image.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-    <div class="field">
-      <%= f.label :image_src %>
-      <%= f.text_field :image_src %>
-    </div>
-
-    <div class="field">
-      <%= f.label :remote_image_src_url %><br />
-     <%= f.text_field :remote_image_src_url %>
-    </div>
-
-    <%= f.hidden_field :version_id, value: @version.id %>
-
-    <div class="actions">
-      <%= f.submit %>
-    </div>
-  <% end %>
-<% end %>
-<h1>Main image:</h1>
+<div class="version-wrapper">
 <% if !!Image.find_by_id(@version.main_image_id) %>
   <div class="version-main-image">
-  <%= image_tag(Image.find_by_id(@version.main_image_id).image_src, :class => "image") %>
+  <%= image_tag(Image.find_by_id(@version.main_image_id).image_src, :class => "image version-main-image") %>
   </div>
-<% else %>
-  <small>Not set.</small>
 <% end %>
+<div class="version-text-wrapper">
+<h1>
+  <%= @version.title %>
+</h1>
+<p>
+  <%= @project.content %>
+</p>
+<p><small><%= @project.user.username %></small></p>
+<% if @version.project.user_id == current_user.id %>
+<div class="add-image-wrapper">
+<p>
+  <a class="btn btn-primary instance-form-button" data-toggle="collapse" href="#new-image" aria-expanded="false" aria-controls="new-image">
+    Add Image
+  </a>
+</p>
+<div class="collapse" id="new-image">
+  <div class="card card-block instance-form">
+      <%= form_for [@project, @version, @image] do |f| %>
+        <% if @image.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@image.errors.count, "error") %> prohibited this image from being saved:</h2>
 
-<h1>Images:</h1>
-<% @version.images.each do |image| %>
-  <div class="version-images">
-    <%= image_tag image.image_src, :class => "image" %>
+            <ul>
+            <% @image.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="form-group">
+          <%= f.label :image_src %>
+          <%= f.file_field :image_src, class: "form-control-file" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :remote_image_src_url %>
+         <%= f.text_field :remote_image_src_url, class: "form-control" %>
+        </div>
+
+        <%= f.hidden_field :version_id, value: @version.id %>
+
+        <div class="actions">
+          <%= f.submit %>
+        </div>
+      <% end %>
   </div>
+</div>
+</div>
 <% end %>
-<h1>Add comment</h1>
+</div>
+<h2 class="version-title">Images</h2>
+<div class="clear-both"></div>
+</div>
+<div class="rows">
+  <div class="row">
+    <% @version.images.each do |image| %>
+      <div class="card card-inverse col-md-4">    
+        <%= image_tag(image.image_src.detail.url, class: "card-img") %>
+        <div class="card-img-overlay">
+          <% if @version.main_image_id == image.id %>
+          <h4 class="card-title">Main Image</h4>
+          <% end %>
+          <% if image.version.project.user_id == current_user.id %>
+            <p class="card-text"><small class="text-muted"><%= link_to 'Delete', project_version_image_path(@project, @version, image), method: :delete, data: { confirm: 'Are you sure?' } %></small></p>
+          <% end %>
+
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<h2>Add comment</h2>
 <%= form_for [@project, @version, @comment] do |f| %>
   <% if @comment.errors.any? %>
     <div id="error_explanation">
@@ -80,37 +91,27 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-  </div>
-
-  <div class="field">
-    <%= f.label :content %>
-    <%= f.text_field :content %>
+  <div class="form-group">
+    <%= f.text_field :title, class: "form-control", placeholder: "Title" %>
+    <%= f.text_field :content, class: "form-control", placeholder: "Content" %>
   </div>
 
   <%= f.hidden_field :version_id, value: @version.id %>
 
-  <div class="actions">
+  <div class="actions comment-submit-button">
     <%= f.submit %>
   </div>
 <% end %>
 
 
-<h1>Comments:</h1>
+<h2>Comments</h2>
 <% @version.comments.each do |comment| %>
   <div class="comment">
     <h3><%= comment.title %></h3>
     <p><%= comment.content %></p>
     <p><small>Added by <%= comment.user.username %> <%= distance_of_time_in_words(Time.now, comment.created_at) %> ago</small></p>
     <% if comment.user == current_user || @version.project.user == current_user %>
-    <%= link_to 'Destroy', project_version_comment_path(@project, @version, comment), method: :delete, data: { confirm: 'Are you sure?' } %>
-    <% end %>
+    <p><small><%= link_to 'Remove commment', project_version_comment_path(@project, @version, comment), method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %></small></p>
   </div>
-<% end %>
-
-<% if @version.project.user_id == current_user.id %>
-  <%= link_to 'Edit', edit_project_version_path(@project, @version) %>
-  <%= link_to 'Back', project_version_path(@project, @version) %>
 <% end %>

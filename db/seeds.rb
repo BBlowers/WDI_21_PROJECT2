@@ -16,12 +16,12 @@ user2 = User.create(username: "aatwell", first_name: "andrew", last_name: "atwel
 
 user3 = User.create(username: "jleslie", first_name: "jess", last_name: "leslie", email: "j@l.com", profile_pic: File.open(File.join(Rails.root, '/db/images/user/profile_pic/3/emoticons-square-face-with-sunglasses_318-58613.png')), password: "password", password_confirmation: "password")
 
-project1 = Project.create(title: "Pokemon drawings.", content: "A collection of pokemon drawings.", current_version_id: 1)
-project2 = Project.create(title: "Landscapes.", content: "Landscapes drawn.", current_version_id: 3)
-project3 = Project.create(title: "Bird drawings.", content: "A collection of bird drawings.", current_version_id: 5)
-project4 = Project.create(title: "Drawing eyes.", content: "A collection of eye drawings.", current_version_id: 7)
-project5 = Project.create(title: "Landscape paintings.", content: "A collection of landscape paintings.", current_version_id: 9)
-project6 = Project.create(title: "Game drawings.", content: "A collection of game drawings.", current_version_id: 11)
+project1 = Project.create(title: "Pokemon drawings", content: "A collection of pokemon drawings.", current_version_id: 1)
+project2 = Project.create(title: "Landscapes", content: "Landscapes drawn.", current_version_id: 3)
+project3 = Project.create(title: "Bird drawings", content: "A collection of bird drawings.", current_version_id: 5)
+project4 = Project.create(title: "Drawing eyes", content: "A collection of eye drawings.", current_version_id: 7)
+project5 = Project.create(title: "Landscape paintings", content: "A collection of landscape paintings.", current_version_id: 9)
+project6 = Project.create(title: "Game drawings", content: "A collection of game drawings.", current_version_id: 11)
 
 user1.projects << project1
 user1.projects << project2
@@ -32,18 +32,18 @@ user2.projects << project4
 user3.projects << project5
 user3.projects << project6
 
-version1 = Version.create(title: "Pikachu", content: "Drawing pikachu sitting down.", main_image_id: 1)
-version2 = Version.create(title: "Eevee drawing", content: "Drawing of a Eevee.", main_image_id: 3)
-version3 = Version.create(title: "Countryside", content: "Drawings of countryside", main_image_id: 5)
-version4 = Version.create(title: "Mountains", content: "Drawings of mountains", main_image_id: 7)
-version5 = Version.create(title: "Robin drawings", content: "Drawing and colouring a robin on a branch.", main_image_id: 9)
-version6 = Version.create(title: "Eagle face drawing", content: "Drawing an eagles face.", main_image_id: 11)
-version7 = Version.create(title: "Eye drawing with reflection.", content: "Drawing an eye with a reflection.", main_image_id: 13)
-version8 = Version.create(title: "Eye drawing with colour", content: "Drawing eyes with colour.", main_image_id: 15)
-version9 = Version.create(title: "Lakes", content: "Lakes painted using diffrent techniques.", main_image_id: 17)
-version10 = Version.create(title: "Arctic", content: "Sea and ice.", main_image_id: 19)
-version11 = Version.create(title: "Mario", content: "A few drawings of characters from the mario games.", main_image_id: 21)
-version12 = Version.create(title: "Overwatch", content: "Some drawings of characters from the game Overwatch.", main_image_id: 23)
+version1 = Version.create(title: "Pikachu", content: "Drawing pikachu sitting down", main_image_id: 1)
+version2 = Version.create(title: "Eevee drawing", content: "Drawing of a Eevee", main_image_id: 3)
+version3 = Version.create(title: "Countryside", content: "Drawings of countrysid", main_image_id: 5)
+version4 = Version.create(title: "Mountains", content: "Drawings of mountain", main_image_id: 7)
+version5 = Version.create(title: "Robin drawings", content: "Drawing and colouring a robin on a branch", main_image_id: 9)
+version6 = Version.create(title: "Eagle face drawing", content: "Drawing an eagles face", main_image_id: 11)
+version7 = Version.create(title: "Eye drawing with reflection", content: "Drawing an eye with a reflection", main_image_id: 13)
+version8 = Version.create(title: "Eye drawing with colour", content: "Drawing eyes with colour", main_image_id: 15)
+version9 = Version.create(title: "Lakes", content: "Lakes painted using diffrent techniques", main_image_id: 17)
+version10 = Version.create(title: "Arctic", content: "Sea and ice", main_image_id: 19)
+version11 = Version.create(title: "Mario", content: "A few drawings of characters from the mario games", main_image_id: 21)
+version12 = Version.create(title: "Overwatch", content: "Some drawings of characters from the game Overwatch", main_image_id: 23)
 
 project1.versions << version1
 project1.versions << version2

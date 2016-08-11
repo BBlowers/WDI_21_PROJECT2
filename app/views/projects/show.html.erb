@@ -1,44 +1,24 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
+<h1>
   <%= @project.title %>
-</p>
-
+</h1>
+<p><small><%= @project.user.username %></small></p>
 <p>
-  <strong>Content:</strong>
   <%= @project.content %>
 </p>
-
-<p>
-  <strong>User:</strong>
-  <%= link_to @project.user.username, @project.user %>
-</p>
-<% if @project.user_id == current_user.id %>
-  <%= link_to 'Edit', edit_project_path(@project) %>
-  <%= link_to "Add new version", new_project_version_path(@project) %>
-<% end %>
-<h1>Versions</h1>
+<h2>Versions</h2>
 <div class="rows">
-  <div class="card-deck-wrapper">
-    <div class="card-deck">
-      <% @project.versions.each do |version| %>
-        <div class="card card-inverse">    
-          <%= link_to (image_tag Image.find_by_id(version.main_image_id).image_src, class: "card-img"), project_version_path(@project, version) %>
-          <div class="card-img-overlay">
-            <h4 class="card-title"><%= link_to version.title, project_version_path(@project, version) %></h4>
-            <p class="card-text"><small class="text-muted"><%= link_to 'Show', project_version_path(@project, version) %></small></p>
-            <% if @project.user_id == current_user.id %>
-            <p class="card-text"><small class="text-muted"><%= link_to 'Edit', edit_project_version_path(@project, version) %></small></p>
-            <p class="card-text"><small class="text-muted"><%= link_to 'Destroy', project_version_path(@project, version), method: :delete, data: { confirm: 'Are you sure?' } %></small></p>
-            <% end %>
-              </div>
-            </div>
-          </div>
+  <div class="row">
+    <% @project.versions.each do |version| %>
+      <div class="card card-inverse col-md-4">    
+        <%= link_to (image_tag Image.find_by_id(version.main_image_id).image_src.detail.url, class: "card-img"), project_version_path(@project, version) %>
+        <div class="card-img-overlay">
+          <h4 class="card-title"><%= link_to version.title, project_version_path(@project, version) %></h4>
+          <% if @project.user_id == current_user.id %>
+          <p class="card-text"><small class="text-muted"><%= link_to 'Edit', edit_project_version_path(@project, version) %></small></p>
+          <p class="card-text"><small class="text-muted"><%= link_to 'Delete', project_version_path(@project, version), method: :delete, data: { confirm: 'Are you sure?' } %></small></p>
+          <% end %>
         </div>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
 </div>
-
-
