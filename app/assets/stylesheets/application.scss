@@ -1,11 +1,20 @@
 /*
- *= require font-awesome
- */
+  *= require font-awesome
+*/
  @import "font-awesome";
  @import "bootstrap";
 
 body {
   background-color: #33323a;
+}
+
+
+div.actions {
+  input {
+    color: #ddd2d2 !important;
+    background-color: #1f1f26;
+    border: none;
+  }
 }
 
 html {
@@ -25,9 +34,12 @@ button.navbar-toggler.hidden-sm-up {
     margin-left: -27px;
 }
 
+form {
+  textarea {
+    color: #1f1f26 !important;
+  }
+}
 div.navbar-left-side.col-md-12 {
-  padding: 0;
-  margin-left: -11px;
   padding: 0;
   margin-left: 15px;
   * {
@@ -54,7 +66,12 @@ div.card {
 
   }
 }
+.form-group {
+input.form-control {
+  color: #1f1f26 !important;
 
+}
+}
 a.btn.btn-primary.instance-form-button {
   background-color: #1f1f26;
   border: none;
@@ -165,6 +182,14 @@ div.actions.comment-submit-button {
   }
 }
 
+.login-screen {
+  margin-top: 65px;
+}
+.container {
+  clear: both !important;
+}
+
+
 .main-version-radio {
   label {
     input {
@@ -193,7 +218,7 @@ div.actions.comment-submit-button {
 
 }
 
-@media screen and (max-width: 540px) {
+@media screen and (max-width: 543px) {
   div.navbar-inline.pull-xs-right {
     a.navbar-brand {
       display: block;
