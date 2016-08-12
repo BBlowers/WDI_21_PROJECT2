@@ -1,14 +1,4 @@
-# require_relative '../app/models/project.rb'
-# require_relative '../app/models/version.rb'
-# require_relative '../app/models/comment.rb'
-# require_relative '../app/models/image.rb'
-# require_relative '../app/models/user.rb'
 
-# version = Version.destroy_all
-# comment = Comment.destroy_all
-# user = User.destroy_all
-# project = Project.destroy_all
-# image = Image.destroy_all
 
 ["versions", "comments", "users", "projects", "images"].each do |table_name|
   ActiveRecord::Base.connection.execute("TRUNCATE #{table_name} RESTART IDENTITY CASCADE")
