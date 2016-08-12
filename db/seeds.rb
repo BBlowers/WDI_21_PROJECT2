@@ -1,6 +1,6 @@
 
 
-["versions", "comments", "users", "projects", "images"].each do |table_name|
+["users", "projects", "versions", "comments", "images"].each do |table_name|
   ActiveRecord::Base.connection.execute("TRUNCATE #{table_name} RESTART IDENTITY CASCADE")
 end
 
