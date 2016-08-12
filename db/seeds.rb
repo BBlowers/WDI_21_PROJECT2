@@ -10,7 +10,7 @@
 # project = Project.destroy_all
 # image = Image.destroy_all
 
-["version", "comment", "users", "projects", "images"].each do |table_name|
+["versions", "comments", "users", "projects", "images"].each do |table_name|
   ActiveRecord::Base.connection.execute("TRUNCATE #{table_name} RESTART IDENTITY CASCADE")
 end
 
