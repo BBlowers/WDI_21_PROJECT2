@@ -17,8 +17,8 @@
   </div>
   <% if project.versions.length > 0 %>
   <div class="form-group">
-  <%= f.collection_radio_buttons(:current_version_id, project.versions, :id, :title) do |b|
-    b.label { b.radio_button + b.object.title }
+  <%= f.collection_radio_buttons(:current_version_id, project.versions, :id, :main_image) do |b|
+    b.label { b.radio_button + image_tag(b.object.main_image.image_src, class: "col-md-4") }
   end %>
   </div
   <% end %>

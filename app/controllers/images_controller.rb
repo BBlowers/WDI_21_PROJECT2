@@ -1,10 +1,13 @@
 class ImagesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_image, only: [:destroy]
-  before_action :set_version, only: [:create, :destroy]
-  before_action :set_project, only: [:create, :destroy]
+  before_action :set_image, only: [:show, :destroy]
+  before_action :set_version, only: [:show, :create, :destroy]
+  before_action :set_project, only: [:show, :create, :destroy]
 
   def new
+  end
+
+  def show
   end
 
   def create

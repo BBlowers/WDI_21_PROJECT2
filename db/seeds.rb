@@ -1,8 +1,18 @@
+require_relative '../app/models/project.rb'
+require_relative '../app/models/version.rb'
+require_relative '../app/models/comment.rb'
+require_relative '../app/models/image.rb'
+require_relative '../app/models/user.rb'
 
+version = Version.destroy_all
+comment = Comment.destroy_all
+user = User.destroy_all
+project = Project.destroy_all
+image = Image.destroy_all
 
-[].each do |table_name|
-  ActiveRecord::Base.connection.execute("TRUNCATE #{table_name} RESTART IDENTITY CASCADE")
-end
+# ["version", "comment", "users", "projects", "images"].each do |table_name|
+#   ActiveRecord::Base.connection.execute("TRUNCATE #{table_name} RESTART IDENTITY CASCADE")
+# end
 
 user1 = User.create(username: "bsmith", first_name: "bill", last_name: "smith", email: "b@s.com", profile_pic: File.open(File.join(Rails.root, '/db/images/user/profile_pic/1/bananasuit.png')), password: "password", password_confirmation: "password")
 

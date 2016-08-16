@@ -9,10 +9,19 @@
 <div class="rows">
   <div class="row">
     <% @project.versions.each do |version| %>
-      <div class="card card-inverse col-md-4">    
-        <%= link_to (image_tag Image.find_by_id(version.main_image_id).image_src.detail.url, class: "card-img"), project_version_path(@project, version) %>
+      <div class="card card-inverse col-md-4">
+        <% if version.main_image != nil %>
+          <% if version.main_image.image_src.detail.url != nil %> 
+          <%= link_to (image_tag version.main_image.image_src.detail.url, class: "card-img"), project_version_path(@project, version) %>
+          <% elsif version.main_image.image_src != nil %>
+            <%= link_to (image_tag version.main_image.image_src.detail.url, class: "card-img"), project_version_path(@project, version) %>
+          <% end %>
+        <% end %>
         <div class="card-img-overlay">
           <h4 class="card-title"><%= link_to version.title, project_version_path(@project, version) %></h4>
+          <% if @project.current_version == version %>
+            <p class="card-text">Current version</p>
+          <% end %>
           <% if @project.user_id == current_user.id %>
           <p class="card-text"><small class="text-muted"><%= link_to 'Edit', edit_project_version_path(@project, version) %></small></p>
           <p class="card-text"><small class="text-muted"><%= link_to 'Delete', project_version_path(@project, version), method: :delete, data: { confirm: 'Are you sure?' } %></small></p>
