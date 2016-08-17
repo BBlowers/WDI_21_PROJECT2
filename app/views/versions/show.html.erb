@@ -60,7 +60,18 @@
 </div>
 <div class="rows">
   <div class="row">
+    <div class="card card-inverse col-md-4">    
+      <%= image_tag(@version.main_image.image_src.detail.url, class: "card-img") %>
+      <div class="card-img-overlay">
+        <h4 class="card-title">Main Image</h4>
+        <% if @version.project.user == current_user %>
+          <p class="card-text"><small class="text-muted"><%= link_to 'Delete', project_version_image_path(@project, @version, @version.main_image), method: :delete, data: { confirm: 'Are you sure?' } %></small></p>
+        <% end %>
+        <%= link_to('Show',project_version_image_path(@project, @version, @version.main_image)) %>
+      </div>
+    </div>
     <% @version.images.each do |image| %>
+      <% if @version.main_image != image %>
       <div class="card card-inverse col-md-4">    
         <%= image_tag(image.image_src.detail.url, class: "card-img") %>
         <div class="card-img-overlay">
@@ -73,6 +84,7 @@
           <%= link_to('Show',project_version_image_path(@project, @version, image)) %>
         </div>
       </div>
+      <% end %>
     <% end %>
   </div>
 </div>
