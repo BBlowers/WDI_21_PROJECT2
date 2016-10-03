@@ -1,10 +1,23 @@
-<h1>
-  <%= @project.title %>
-</h1>
-<p><small><%= @project.user.username %></small></p>
-<p>
-  <%= @project.content %>
-</p>
+<button class="dropdown dropdown-menu" type="button" data-toggle="collapse" data-target="#project-details" aria-controls="exCollapsingNavbar2" aria-expanded="false" aria-label="Toggle navigation">
+  Project details
+</button>
+<div class="collapse navbar-toggleable-xs navbar-inline" id="project-details">
+  <h1>
+    <%= @project.title %>
+  </h1>
+  <p><small><%= @project.user.username %></small></p>
+  <p>
+    <%= @project.content %>
+  </p>  
+</div>
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="projectInfo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Project Info</button>
+  <div class="dropdown-menu" aria-labelledby="projectInfo">
+    <a class="dropdown-item" href="#"><%= @project.title %></a>
+    <a class="dropdown-item" href="#"><%= @project.user.username %></a>
+    <a class="dropdown-item" href="#"><%= @project.content %></a>
+  </div>
+</div>
 <h2>Versions</h2>
 <div class="rows">
   <div class="row">
@@ -17,11 +30,11 @@
         <% end %>
       <% end %>
       <div class="card-img-overlay">
-        <h4 class="card-title"><%= link_to version.title, project_version_path(@project, @project.current_version) %></h4>
+        <h4 class="card-title"><%= link_to @project.current_version.title, project_version_path(@project, @project.current_version) %></h4>
         <p class="card-text">Current version</p>
         <% if @project.user == current_user %>
-        <p class="card-text"><small class="text-muted"><%= link_to 'Edit', edit_project_version_path(@project, version) %></small></p>
-        <p class="card-text"><small class="text-muted"><%= link_to 'Delete', project_version_path(@project, version), method: :delete, data: { confirm: 'Are you sure?' } %></small></p>
+        <p class="card-text"><small class="text-muted"><%= link_to 'Edit', edit_project_version_path(@project, @project.current_version) %></small></p>
+        <p class="card-text"><small class="text-muted"><%= link_to 'Delete', project_version_path(@project, @project.current_version), method: :delete, data: { confirm: 'Are you sure?' } %></small></p>
         <% end %>
       </div>
     </div>

@@ -12,14 +12,14 @@
         <%= link_to "Projects", projects_path, class: "nav-link" %>
       </li>
       <li class="nav-item">
-        <%= link_to "Add Project", new_project_path, class: "nav-link" %>
+        <%= link_to "New Project", new_project_path, class: "nav-link" %>
       </li>
       <% if @project != nil && @project.user_id == current_user.id && @version == nil %>
       <li class="nav-item">
         <%= link_to 'Edit project', edit_project_path(@project), class: "nav-link" %>
       </li>
       <li class="nav-item">
-        <%= link_to "Add new version", new_project_version_path(@project), class: "nav-link" %>
+        <%= link_to "New version", new_project_version_path(@project), class: "nav-link" %>
       </li>
       <% elsif !!@version && @version.title != nil && @project.user == current_user%>
       <li class="nav-item">

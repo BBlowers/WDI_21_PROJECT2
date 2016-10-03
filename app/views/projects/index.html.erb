@@ -1,17 +1,17 @@
 <p id="notice"><%= notice %></p>
-<%= link_to 'New Project', new_project_path %>
 <h1>Projects</h1>
 
 <div class="rows">
-  <div class="rows">
+  <div class="row">
     <div class="card-deck-wrapper">
       <div class="card-deck">
         <% @projects.each do |project| %>
+        <div class="card card-inverse col-md-4">
             <%= link_to (image_tag project.current_version.main_image.image_src.detail.url, class: "card-img"), project_path(project) %>
             <div class="card-img-overlay">
               <h4 class="card-title"><%= link_to project.title, project_path(project)%></h4>
             </div>
-          </div>
+        </div>
         <% end %>
       </div>
     </div>
