@@ -1,7 +1,7 @@
 <button class="dropdown dropdown-menu" type="button" data-toggle="collapse" data-target="#project-details" aria-controls="exCollapsingNavbar2" aria-expanded="false" aria-label="Toggle navigation">
   Project details
 </button>
-<div class="collapse navbar-toggleable-xs navbar-inline" id="project-details">
+<div id="project-details">
   <h1>
     <%= @project.title %>
   </h1>
@@ -9,14 +9,6 @@
   <p>
     <%= @project.content %>
   </p>  
-</div>
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="projectInfo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Project Info</button>
-  <div class="dropdown-menu" aria-labelledby="projectInfo">
-    <a class="dropdown-item" href="#"><%= @project.title %></a>
-    <a class="dropdown-item" href="#"><%= @project.user.username %></a>
-    <a class="dropdown-item" href="#"><%= @project.content %></a>
-  </div>
 </div>
 <h2>Versions</h2>
 <div class="rows">
@@ -38,16 +30,17 @@
         <% end %>
       </div>
     </div>
-    <% @project.versions.each do |version| %>
-      <div class="card card-inverse col-md-4">
-        <% if version != @project.current_version %>
-          <% if version.main_image != nil %>
-            <% if version.main_image.image_src.detail.url != nil %> 
+    <% @project.versions.each do |version| %>   
+      <% if version != @project.current_version %>
+        <% if version.main_image != nil %>
+        <div class="card card-inverse col-md-4">
+          <% if version.main_image.image_src.detail.url != nil %> 
+            
             <%= link_to (image_tag version.main_image.image_src.detail.url, class: "card-img"), project_version_path(@project, version) %>
-            <% elsif version.main_image.image_src != nil %>
-              <%= link_to (image_tag version.main_image.image_src.detail.url, class: "card-img"), project_version_path(@project, version) %>
-            <% end %>
+          <% elsif version.main_image.image_src != nil %>
+            <%= link_to (image_tag version.main_image.image_src.detail.url, class: "card-img"), project_version_path(@project, version) %>
           <% end %>
+        <% end %>
           <div class="card-img-overlay">
             <h4 class="card-title"><%= link_to version.title, project_version_path(@project, version) %></h4>
             <% if @project.current_version == version %>
@@ -57,9 +50,9 @@
             <p class="card-text"><small class="text-muted"><%= link_to 'Edit', edit_project_version_path(@project, version) %></small></p>
             <p class="card-text"><small class="text-muted"><%= link_to 'Delete', project_version_path(@project, version), method: :delete, data: { confirm: 'Are you sure?' } %></small></p>
             <% end %>
-          <% end %>
         </div>
       </div>
+      <% end %>
     <% end %>
   </div>
 </div>
