@@ -19,8 +19,8 @@
 <div class="rows">
   <div class="row">
     <% @user.projects.each do |project| %>
-      <div class="card card-inverse col-md-4">    
-        <%= link_to (image_tag Image.find_by_id(Version.find_by_id(project.current_version_id).main_image_id).image_src.detail.url, class: "card-img"), project_path(project) %>
+      <div class="card card-inverse col-md-4"> 
+        <%= link_to (image_tag project.current_version.main_image.image_src.detail.url, class: "card-img"), project_path(project) %>
         <div class="card-img-overlay">
           <h4 class="card-title"><%= link_to project.title, project_path(project) %></h4>
           <% if project.user_id == current_user.id %>
